@@ -302,6 +302,7 @@ FloodgaugeDataSource.prototype = {
 
 		// Poll now, immediately
 		poll();
+		
 		// Setup interval to poll repeatedly in future
 		self._interval = setInterval(
 			poll,
