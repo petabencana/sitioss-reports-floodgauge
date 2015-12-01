@@ -165,7 +165,6 @@ FloodgaugeDataSource.prototype = {
 				self.logger.verbose( "FloodgaugeDataSource > poll > processResults: Processing result " + result.gaugeId +', ' + result.measureDateTime );
 				self._lastContributionTime[result.gaugeId] = result.measureDateTime;
 				self._processResult( result );
-				self.logger.verbose(result)
 			}
 			result = results.reports.shift();
 		}
@@ -302,7 +301,7 @@ FloodgaugeDataSource.prototype = {
 
 		// Poll now, immediately
 		poll();
-		
+
 		// Setup interval to poll repeatedly in future
 		self._interval = setInterval(
 			poll,
