@@ -26,12 +26,15 @@ SELECT AddGeometryColumn ('public','floodgauge_reports','the_geom',4326,'POINT',
 CREATE INDEX gix_floodgauge_reports ON floodgauge_reports USING gist (the_geom);
 
 -- Create types for floodgauge data output
-CREATE OR REPLACE TYPE obs_type AS (
+CREATE TYPE obs_type AS (
   measuredatetime timestamp with time zone,
-  depth integer
+  depth integer,
+  warninglevel integer,
+  warningnameid varchar
 );
 
-CREATE OR REPLACE TYPE prop_type AS (
+CREATE TYPE prop_type AS (
 	gaugeid varchar,
+  gaugenameid varchar,
 	observations json
 );
