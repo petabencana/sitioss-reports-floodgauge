@@ -27,7 +27,7 @@ CREATE INDEX gix_floodgauge_reports ON floodgauge_reports USING gist (the_geom);
 
 -- Create types for floodgauge data output
 CREATE TYPE obs_type AS (
-  measuredatetime timestamp with time zone,
+  measuredatetime timestamp,
   depth integer,
   warninglevel integer,
   warningnameid varchar
