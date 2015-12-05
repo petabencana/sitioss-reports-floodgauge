@@ -265,7 +265,7 @@ FloodgaugeDataSource.prototype = {
 
 		self.reports.dbQuery(
 			{
-				text: "SELECT gaugeid, date_part('epoch', max(measuredatetime))  epoch FROM " + self.config.floodgauge.pg.table_floodgauge + " " +
+				text: "SELECT gaugeid, date_part('epoch', max(measuredatetime)) epoch FROM " + self.config.floodgauge.pg.table_floodgauge + " " +
 				"GROUP BY gaugeid;"
 			},
 			function ( result ) {
