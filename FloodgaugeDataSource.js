@@ -270,7 +270,7 @@ FloodgaugeDataSource.prototype = {
 			},
 			function ( result ) {
 				if (result && result.rows && result.rows.length > 0){
-					for (var i = 0; i < result.rows.length - 1; i++) {
+					for (var i = 0; i < result.rows.length; i++) {
 						self._lastContributionTime[result.rows[i].gaugeid] = result.rows[i].epoch;
 					}
 					self.logger.info('Set last observation times from database');
