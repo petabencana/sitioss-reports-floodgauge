@@ -163,7 +163,7 @@ FloodgaugeDataSource.prototype = {
 			} else {
 				// Process this result
 				self.logger.verbose( "FloodgaugeDataSource > poll > processResults: Processing result " + result.gaugeId +', ' + result.measureDateTime );
-				self._lastContributionTime[result.gaugeId] = result.measureDateTime;
+				self._lastContributionTime[result.gaugeId] = Date.parse(result.measureDateTime+'+0700')/1000;
 				self._processResult( result );
 			}
 			result = results.reports.shift();
@@ -265,7 +265,7 @@ FloodgaugeDataSource.prototype = {
 
 		self.reports.dbQuery(
 			{
-				text: "SELECT gaugeid, date_part('epoch', max(measuredatetime)) epoch FROM " + self.config.floodgauge.pg.table_floodgauge + " " +
+				text: "SELECT gaugeid, date_part('epoch', max(measuredatetime))  epoch FROM " + self.config.floodgauge.pg.table_floodgauge + " " +
 				"GROUP BY gaugeid;"
 			},
 			function ( result ) {

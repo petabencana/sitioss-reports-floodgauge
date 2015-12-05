@@ -10,7 +10,7 @@
  */
 
 var FloodgaugeDataSource = require('./FloodgaugeDataSource');
-var config = require('./sample-floodgauge-config');
+var config = require('./live-floodgauge-config');
 /**
  * The constructor function we expose takes a reports object and returns an instance of this
  * data source, with configuration already injected.
