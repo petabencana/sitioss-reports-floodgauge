@@ -1,14 +1,16 @@
 'use strict';
 
-// sample-qlue-config.js - sample configuration file for cognicity-reports-qlue module
+// sample-floodgauge-config.js - sample configuration file for cognicity-reports-floodgauge module
 
 /**
- * Configuration for cognicity-reports-powertrack
+ * Configuration for cognicity-reports-floodgauge
  * @namespace {object} config
- * @property {object} floodgauge Configuration object for Qlue web service interface
- * @property {string} floodgauge.serviceURL The URL for the Qlue web service
+ * @property {object} floodgauge Configuration object for floodgauge web service interface
+ * @property {string} floodgauge.serviceURL The URL for the floodgauge web service
  * @property {number} floodgauge.pollInterval Poll interval for web service in milliseconds
  * @property {number} floodgauge.historicalLoadPeriod Maximum age in milliseconds of reports which will be processed
+ * @property {object} dims.pg Postgres configuration
+ * @property {string} dims.pg.table_floodgauge Database table to store floodgauge reports in
  */
 var config = {};
 

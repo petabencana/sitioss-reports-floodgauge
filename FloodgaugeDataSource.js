@@ -5,7 +5,7 @@
  * Poll the specified Floodgauge feed for new data and send it to the reports application.
  * @constructor
  * @param {Reports} reports An instance of the reports object.
- * @param {object} config Gnip powertrack specific configuration.
+ * @param {object} config Floodgauge specific configuration.
  */
 var FloodgaugeDataSource = function FloodgaugeDataSource(
 		reports,
@@ -94,8 +94,8 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Fetch one results
-	 * Call the callback function on the results
+	 * Fetch results.
+	 * Call the callback function on the results.
 	 */
 	_fetchResults: function() {
 		var self = this;
@@ -113,11 +113,11 @@ FloodgaugeDataSource.prototype = {
 		  });
 
 		  res.on('end', function() {
-		    var responseObject;
-				var responseCleaned;
+		    var responseoneObject;
+			var responseCleaned;
 		    try {
-					responseCleaned = response.replace(/("[^"]+")|([a-zA-Z0-9_-]+):/g, '"$2":$1 ').replace(/: "":/g, ':');
-					responseObject = JSON.parse(responseCleaned);
+		    	responseCleaned = response.replace(/("[^"]+")|([a-zA-Z0-9_-]+):/g, '"$2":$1 ').replace(/: "":/g, ':');
+				responseObject = JSON.parse(responseCleaned);
 		    } catch (e) {
 		    	self.logger.error( "FloodgaugeDataSource > poll > fetchResults: Error parsing JSON: " + response );
 		    	return;
@@ -145,8 +145,8 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Process the passed result objects
-	 * Stop processing if we've seen a result before, or if the result is too old
+	 * Process the passed result objects.
+	 * Stop processing if we've seen a result before, or if the result is too old.
 	 * @param {Array} results Array of result objects from the Floodgauge data to process
 	 */
 	_filterResults: function( results ) {
@@ -201,8 +201,8 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	* Insert a confirmed report - i.e. has geo coordinates
-	* Store both the floodgauge report and the user hash
+	* Insert a confirmed report - i.e. has geo coordinates.
+	* Store both the floodgauge report and the user hash.
 	* @param {floodgaugeReport} floodgaugeReport Floodgauge report object
 	*/
 	_insertGaugeReading: function( floodgaugeReport ) {
@@ -257,8 +257,8 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	* Get the last contribution ID as stored in the database
-	* Update _lastContributionId
+	* Get the last contribution ID as stored in the database.
+	* Update _lastContributionTime
 	*/
 	_updateLastContributionIdFromDatabase: function() {
 		var self = this;
@@ -284,8 +284,7 @@ FloodgaugeDataSource.prototype = {
 
 	/**
 	 * Connect to the data stream.
-	 * Setup error handlers and timeout handler.
-	 * Handle events from the stream on incoming data.
+	 * Retrieve data now and start polling for more data.
 	 */
 	start: function(){
 		var self = this;
