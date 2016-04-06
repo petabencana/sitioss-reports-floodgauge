@@ -94,8 +94,7 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Fetch results.
-	 * Call the callback function on the results.
+	 * Fetch and process the results.
 	 */
 	_fetchResults: function() {
 		var self = this;
