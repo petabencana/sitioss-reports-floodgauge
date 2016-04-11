@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "npm run jshint && npm run mocha",
-    "jshint": "jshint index.js FloodgaugeDataSource.js sample-qlue-config.js test/testFloodgauge.js",
+    "jshint": "jshint index.js FloodgaugeDataSource.js sample-floodgauge-config.js test/testFloodgauge.js",
     "mocha": "mocha test",
     "build-docs": "jsdoc -d docs package.json index.js sample-floodgauge-config.js FloodgaugeDataSource.js",
     "build": "npm test && npm run build-docs && npm run coverage",
