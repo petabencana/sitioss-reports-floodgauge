@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @file Cognicity reports data module which retrieves tweet data from the BPBD floodgauge API (Siaga Levels)
+ * @file Cognicity reports data module which retrieves data from the BPBD floodgauge API (Siaga Levels)
  * @copyright (c) Tomas Holderness & SMART Infrastructure Facility November 2015
  * @license Released under GNU GPLv3 License (see LICENSE.txt).
  * @example
