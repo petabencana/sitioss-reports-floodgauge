@@ -18,9 +18,8 @@
     "node": "^0.10.16"
   },
   "scripts": {
-    "test": "npm run jshint && npm run mocha",
-    "jshint": "jshint index.js FloodgaugeDataSource.js sample-floodgauge-config.js test/testFloodgauge.js",
-    "mocha": "mocha test",
+    "test": "npm run jshint",
+    "jshint": "jshint index.js FloodgaugeDataSource.js sample-floodgauge-config.js",
     "build-docs": "jsdoc -d docs package.json index.js sample-floodgauge-config.js FloodgaugeDataSource.js",
     "build": "npm test && npm run build-docs && npm run coverage",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha"
