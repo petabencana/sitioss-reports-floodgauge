@@ -1,16 +1,16 @@
 'use strict';
 
 /**
- * The Floodgauge data source.
- * Poll the specified Floodgauge feed for new data and send it to the reports application.
- * @constructor
- * @param {Reports} reports An instance of the reports object.
- * @param {object} config Floodgauge specific configuration.
- */
+* The Floodgauge data source.
+* Poll the specified Floodgauge feed for new data and send it to the reports application.
+* @constructor
+* @param {Reports} reports An instance of the reports object.
+* @param {object} config Floodgauge specific configuration.
+*/
 var FloodgaugeDataSource = function FloodgaugeDataSource(
-		reports,
-		config
-	){
+	reports,
+	config
+){
 
 	// Store references to reports and logger
 	this.reports = reports;
@@ -33,59 +33,59 @@ var FloodgaugeDataSource = function FloodgaugeDataSource(
 FloodgaugeDataSource.prototype = {
 
 	/**
-	 * Data source configuration.
-	 * This contains the reports configuration and the data source specific configuration.
-	 * @type {object}
-	 */
+	* Data source configuration.
+	* This contains the reports configuration and the data source specific configuration.
+	* @type {object}
+	*/
 	config: {},
 
 	/**
-	 * Instance of the reports module that the data source uses to interact with Cognicity Server.
-	 * @type {Reports}
-	 */
+	* Instance of the reports module that the data source uses to interact with Cognicity Server.
+	* @type {Reports}
+	*/
 	reports: null,
 
 	/**
-	 * Instance of the Winston logger.
-	 */
+	* Instance of the Winston logger.
+	*/
 	logger: null,
 
 	/**
-	 * Instance of node http.
-	 */
+	* Instance of node http.
+	*/
 	http: null,
 
 	/**
-	 * Flag signifying if we are currently able to process incoming data immediately.
-	 * Turned on if the database is temporarily offline so we can cache for a short time.
-	 * @type {boolean}
-	 */
+	* Flag signifying if we are currently able to process incoming data immediately.
+	* Turned on if the database is temporarily offline so we can cache for a short time.
+	* @type {boolean}
+	*/
 	_cacheMode: false,
 
 	/**
-	 * Store data if we cannot process immediately, for later processing.
-	 * @type {Array}
-	 */
+	* Store data if we cannot process immediately, for later processing.
+	* @type {Array}
+	*/
 	_cachedData: [],
 
 	/**
-	 * Last contribution timestamp that was processed, for each floodgauge.
-	 * Used to ensure we don't process the same result twice.
-	 * @type {number}
-	 */
+	* Last contribution timestamp that was processed, for each floodgauge.
+	* Used to ensure we don't process the same result twice.
+	* @type {number}
+	*/
 	_lastContributionTime: {0:0},
 
 	/**
-	 * Reference to the polling interval.
-	 * @type {number}
-	 */
+	* Reference to the polling interval.
+	* @type {number}
+	*/
 	_interval: null,
 
 	/**
-	 * Polling worker function.
-	 * Poll the Floodgauge web service and process the results.
-	 * This method is called repeatedly on a timer.
-	 */
+	* Polling worker function.
+	* Poll the Floodgauge web service and process the results.
+	* This method is called repeatedly on a timer.
+	*/
 	_poll: function(){
 		var self = this;
 
@@ -94,8 +94,8 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Fetch and process the results.
-	 */
+	* Fetch and process the results.
+	*/
 	_fetchResults: function() {
 		var self = this;
 
@@ -105,35 +105,35 @@ FloodgaugeDataSource.prototype = {
 		var response = "";
 
 		var req = self.http.request( requestURL , function(res) {
-		  res.setEncoding('utf8');
+			res.setEncoding('utf8');
 
-		  res.on('data', function (chunk) {
-		    response += chunk;
-		  });
+			res.on('data', function (chunk) {
+				response += chunk;
+			});
 
-		  res.on('end', function() {
-		    var responseoneObject;
-			var responseCleaned;
-		    try {
-		    	responseCleaned = response.replace(/("[^"]+")|([a-zA-Z0-9_-]+):/g, '"$2":$1 ').replace(/: "":/g, ':');
-				responseObject = JSON.parse(responseCleaned);
-		    } catch (e) {
-		    	self.logger.error( "FloodgaugeDataSource > poll > fetchResults: Error parsing JSON: " + response );
-		    	return;
-		    }
+			res.on('end', function() {
+				var responseObject;
+				var responseCleaned;
+				try {
+					responseCleaned = response.replace(/("[^"]+")|([a-zA-Z0-9_-]+):/g, '"$2":$1 ').replace(/: "":/g, ':');
+					responseObject = JSON.parse(responseCleaned);
+				} catch (e) {
+					self.logger.error( "FloodgaugeDataSource > poll > fetchResults: Error parsing JSON: " + response );
+					return;
+				}
 
-		    self.logger.debug("FloodgaugeDataSource > poll > fetchResults: fetched data, " + response.length + " bytes");
+				self.logger.debug("FloodgaugeDataSource > poll > fetchResults: fetched data, " + response.length + " bytes");
 
-			if ( !responseObject || responseObject.length === 0 ) {
-				// If page has a problem or 0 objects, end
-				self.logger.error( "FloodgaugeDataSource > poll > fetchResults: No results found ");
-				return;
-			} else {
-				// Run data processing callback on the result objects
-				self.logger.debug("FloodgaugeDataSource > poll > fetchResults: parsed incoming JSON.");
-				self._filterResults( responseObject );
-			}
-		  });
+				if ( !responseObject || responseObject.length === 0 ) {
+					// If page has a problem or 0 objects, end
+					self.logger.error( "FloodgaugeDataSource > poll > fetchResults: No results found ");
+					return;
+				} else {
+					// Run data processing callback on the result objects
+					self.logger.debug("FloodgaugeDataSource > poll > fetchResults: parsed incoming JSON.");
+					self._filterResults( responseObject );
+				}
+			});
 		});
 
 		req.on('error', function(error) {
@@ -144,10 +144,10 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Process the passed result objects.
-	 * Stop processing if we've seen a result before, or if the result is too old.
-	 * @param {Array} results Array of result objects from the Floodgauge data to process
-	 */
+	* Process the passed result objects.
+	* Stop processing if we've seen a result before, or if the result is too old.
+	* @param {Array} results Array of result objects from the Floodgauge data to process
+	*/
 	_filterResults: function( results ) {
 		var self = this;
 		// For each result:
@@ -170,10 +170,10 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Process a result.
-	 * This method is called for each new result we fetch from the web service.
-	 * @param {object} result The result object from the web service
-	 */
+	* Process a result.
+	* This method is called for each new result we fetch from the web service.
+	* @param {object} result The result object from the web service
+	*/
 	_processResult: function( result ) {
 		var self = this;
 
@@ -187,16 +187,16 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Save a result to cognicity server.
-	 * @param {object} result The result object from the web service
-	 */
+	* Save a result to cognicity server.
+	* @param {object} result The result object from the web service
+	*/
 	_saveResult: function( result ) {
-		 var self = this;
+		var self = this;
 
-		 // Don't allow users from the Gulf of Guinea (indicates no geo available)
-		 if (result.longitude !== 0 && result.latitude !== 0){
-			 self._insertGaugeReading(result);
-		 }
+		// Don't allow users from the Gulf of Guinea (indicates no geo available)
+		if (result.longitude !== 0 && result.latitude !== 0){
+			self._insertGaugeReading(result);
+		}
 	},
 
 	/**
@@ -211,25 +211,25 @@ FloodgaugeDataSource.prototype = {
 		self.reports.dbQuery(
 			{
 				text: "INSERT INTO " + self.config.floodgauge.pg.table_floodgauge + " " +
-					"(gaugeid, measuredatetime, depth, deviceid, reporttype, level, notificationflag, gaugenameid, gaugenameen, gaugenamejp, warninglevel, warningnameid, warningnameen, warningnamejp, observation_comment, the_geom) " +
-					"VALUES (" +
-					"$1, " +
-					"to_timestamp($2), " +
-					"$3, " +
-					"$4, " +
-					"$5, " +
-					"$6, " +
-					"$7, " +
-					"$8, " +
-					"$9, " +
-					"$10, " +
-					"$11, " +
-					"$12, " +
-					"$13, " +
-					"$14, " +
-					"$15, " +
-					"ST_GeomFromText('POINT(' || $16 || ')',4326)" +
-					");",
+				"(gaugeid, measuredatetime, depth, deviceid, reporttype, level, notificationflag, gaugenameid, gaugenameen, gaugenamejp, warninglevel, warningnameid, warningnameen, warningnamejp, observation_comment, the_geom) " +
+				"VALUES (" +
+				"$1, " +
+				"to_timestamp($2), " +
+				"$3, " +
+				"$4, " +
+				"$5, " +
+				"$6, " +
+				"$7, " +
+				"$8, " +
+				"$9, " +
+				"$10, " +
+				"$11, " +
+				"$12, " +
+				"$13, " +
+				"$14, " +
+				"$15, " +
+				"ST_GeomFromText('POINT(' || $16 || ')',4326)" +
+				");",
 				values : [
 					floodgaugeReport.gaugeId,
 					Date.parse(floodgaugeReport.measureDateTime+'+0700')/1000,
@@ -282,9 +282,9 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Connect to the data stream.
-	 * Retrieve data now and start polling for more data.
-	 */
+	* Connect to the data stream.
+	* Retrieve data now and start polling for more data.
+	*/
 	start: function(){
 		var self = this;
 
@@ -308,8 +308,8 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Stop realtime processing of results and start caching results until caching mode is disabled.
-	 */
+	* Stop realtime processing of results and start caching results until caching mode is disabled.
+	*/
 	enableCacheMode: function() {
 		var self = this;
 
@@ -318,9 +318,9 @@ FloodgaugeDataSource.prototype = {
 	},
 
 	/**
-	 * Resume realtime processing of results.
-	 * Also immediately process any results cached while caching mode was enabled.
-	 */
+	* Resume realtime processing of results.
+	* Also immediately process any results cached while caching mode was enabled.
+	*/
 	disableCacheMode: function() {
 		var self = this;
 
