@@ -22,6 +22,6 @@ config.floodgauge.historicalLoadPeriod = 1000 * 60 * 120; // E.g. 1000 * 60 * 12
 
 // Floodgauge configuration for cognicity-schema
 config.floodgauge.pg = {};
-config.floodgauge.pg.table_floodgauge = 'floodgauge_reports';
+config.floodgauge.pg.table_floodgauge = 'floodgauge.reports';
 
 module.exports = config;
