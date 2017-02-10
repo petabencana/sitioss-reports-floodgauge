@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 
 // sample-floodgauge-config.js - sample configuration file for cognicity-reports-floodgauge module
 
@@ -16,7 +17,7 @@ var config = {};
 
 // Floodgauge web service API
 config.floodgauge = {};
-config.floodgauge.serviceURL = "http://example.com/cgi-bin/wlr"; // E.g. https://example.com/cgi-bin/wlr
+config.floodgauge.serviceURL = process.env.FLOODGAUGE_URL; // E.g. https://example.com/cgi-bin/wlr
 config.floodgauge.pollInterval = 1000 * 60 * 15; // E.g. 1000 * 60 * 15 = 15 minutes
 config.floodgauge.historicalLoadPeriod = 1000 * 60 * 120; // E.g. 1000 * 60 * 120 = 2 hours
 
