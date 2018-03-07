@@ -1,5 +1,10 @@
 'use strict';
 
+var rootCas = require('ssl-root-cas/latest').create();
+
+rootCas.addFile(__dirname + '/intermediate.pem');
+
+
 /**
 * The Floodgauge data source.
 * Poll the specified Floodgauge feed for new data and send it to the reports application.
@@ -24,7 +29,7 @@ var FloodgaugeDataSource = function FloodgaugeDataSource(
 		}
 	}
 
-	this.https = require('https');
+	this.https = require('https').globalAgent.options.ca = rootCas;
 
 	// Set constructor reference (used to print the name of this data source)
 	this.constructor = FloodgaugeDataSource;

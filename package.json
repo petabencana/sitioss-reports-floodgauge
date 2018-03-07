@@ -6,7 +6,8 @@
   "preferGlobal": false,
   "private": true,
   "dependencies": {
-    "dotenv": "^4.0.0"
+    "dotenv": "^4.0.0",
+    "ssl-root-cas": "^1.2.5"
   },
   "devDependencies": {
     "jsdoc": "^3.4.3",
