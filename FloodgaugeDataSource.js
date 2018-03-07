@@ -29,7 +29,8 @@ var FloodgaugeDataSource = function FloodgaugeDataSource(
 		}
 	}
 
-	this.https = require('https').globalAgent.options.ca = rootCas;
+	this.https = require('https');
+	this.https.globalAgent.options.ca = rootCas;
 
 	// Set constructor reference (used to print the name of this data source)
 	this.constructor = FloodgaugeDataSource;
