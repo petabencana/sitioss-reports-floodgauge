@@ -24,7 +24,7 @@ var FloodgaugeDataSource = function FloodgaugeDataSource(
 		}
 	}
 
-	this.http = require('http');
+	this.https = require('https');
 
 	// Set constructor reference (used to print the name of this data source)
 	this.constructor = FloodgaugeDataSource;
@@ -51,9 +51,9 @@ FloodgaugeDataSource.prototype = {
 	logger: null,
 
 	/**
-	* Instance of node http.
+	* Instance of node https.
 	*/
-	http: null,
+	https: null,
 
 	/**
 	* Flag signifying if we are currently able to process incoming data immediately.
@@ -104,7 +104,7 @@ FloodgaugeDataSource.prototype = {
 		var requestURL = self.config.floodgauge.serviceURL;
 		var response = "";
 
-		var req = self.http.request( requestURL , function(res) {
+		var req = self.https.request( requestURL , function(res) {
 			res.setEncoding('utf8');
 
 			res.on('data', function (chunk) {
