@@ -1,12 +1,12 @@
-CogniCity
+Situational Intelligence Open Source Software (Siti OSS)
 ===========
-**Open Source GeoSocial Intelligence Framework**
+**Open Source Situational Intelligence Framework**
 
-# cognicity-reports-floodgauge
+# sitioss-reports-floodgauge
 
-Cognicity reports module for floodgauge readings
+Siti OSS reports module for floodgauge readings
 
-####cognicity-reports-floodgauge: Module for [cognicity-reports](https://github.com/smart-facility/cognicity-reports) module to collect BPBD floodgauge API (Siaga Levels).
+####sitioss-reports-floodgauge: Module for [sitioss-reports](https://github.com/smart-facility/cognicity-reports) module to collect BPBD floodgauge API (Siaga Levels).
 
 Travis build status: [![Build Status](https://travis-ci.org/smart-facility/cognicity-reports-floodgauge.svg?branch=master)](https://travis-ci.org/smart-facility/cognicity-reports-floodgauge)
 
@@ -14,8 +14,8 @@ DOI for current stable release [v2.0.0](https://github.com/smart-facility/cognic
 [![DOI](https://zenodo.org/badge/19201/smart-facility/cognicity-reports-floodgauge.svg)](https://zenodo.org/badge/latestdoi/19201/smart-facility/cognicity-reports-floodgauge)
 
 ### About
-Cognicity-reports-floodgauge is the NodeJS reports module for collecting floodgauge levels from the BPBD floodgauge API. For detailed framework documentation see [http://cognicity.info](http://cognicity.info).
-This module is not designed to be run standalone but is designed to be run as a submodule of [cognicity-reports](https://github.com/smart-facility/cognicity-reports), which can run just with this submodule alone.
+Sitioss-reports-floodgauge is the NodeJS reports module for collecting floodgauge levels from the BPBD floodgauge API. For detailed framework documentation see [http://sitioss.info](http://sitioss.info).
+This module is not designed to be run standalone but is designed to be run as a submodule of [sitioss-reports](https://github.com/smart-facility/cognicity-reports), which can run just with this submodule alone.
 
 ### Dependencies
 * [NodeJS](http://nodejs.org) version 4.2.1 or compatible
@@ -26,7 +26,7 @@ This module is not designed to be run standalone but is designed to be run as a 
 If you're going to commit changes to the JavaScript, be sure to run 'npm test' first - and fix any issues that it complains about, otherwise the build will fail when you push the commit.
 
 ### Installation
-Please install this as a submodule of [cognicity-reports](https://github.com/smart-facility/cognicity-reports). Please refer to the [documentation of that project](https://github.com/smart-facility/cognicity-reports/blob/master/README.md) for further information.
+Please install this as a submodule of [sitioss-reports](https://github.com/smart-facility/cognicity-reports). Please refer to the [documentation of that project](https://github.com/smart-facility/cognicity-reports/blob/master/README.md) for further information.
 
 Install the node dependencies for this submodule as listed in package.json using npm: `npm install`
 
