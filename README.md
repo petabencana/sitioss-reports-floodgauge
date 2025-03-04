@@ -6,16 +6,11 @@ Situational Intelligence Open Source Software (Siti OSS)
 
 Siti OSS reports module for floodgauge readings
 
-####sitioss-reports-floodgauge: Module for [sitioss-reports](https://github.com/smart-facility/cognicity-reports) module to collect BPBD floodgauge API (Siaga Levels).
-
-Travis build status: [![Build Status](https://travis-ci.org/smart-facility/cognicity-reports-floodgauge.svg?branch=master)](https://travis-ci.org/smart-facility/cognicity-reports-floodgauge)
-
-DOI for current stable release [v2.0.0](https://github.com/smart-facility/cognicity-reports-floodgauge/releases/tag/v2.0.0):
-[![DOI](https://zenodo.org/badge/19201/smart-facility/cognicity-reports-floodgauge.svg)](https://zenodo.org/badge/latestdoi/19201/smart-facility/cognicity-reports-floodgauge)
+####sitioss-reports-floodgauge: Module for [sitioss-reports](https://github.com/petabencana/sitioss-reports) module to collect BPBD floodgauge API (Siaga Levels).
 
 ### About
 Sitioss-reports-floodgauge is the NodeJS reports module for collecting floodgauge levels from the BPBD floodgauge API. For detailed framework documentation see [http://sitioss.info](http://sitioss.info).
-This module is not designed to be run standalone but is designed to be run as a submodule of [sitioss-reports](https://github.com/smart-facility/cognicity-reports), which can run just with this submodule alone.
+This module is not designed to be run standalone but is designed to be run as a submodule of [sitioss-reports](https://github.com/petabencana/sitioss-reports), which can run just with this submodule alone.
 
 ### Dependencies
 * [NodeJS](http://nodejs.org) version 4.2.1 or compatible
